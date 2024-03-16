@@ -41,10 +41,13 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# own files
+up.bat
+
 # Firebase
 .firebase
 *-debug.log
 .runtimeconfig.json
 
-# Ignore environment files
-environments/environment.development.ts
+# Environment
+environment.development.ts
