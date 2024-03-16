@@ -47,5 +47,4 @@ Thumbs.db
 .runtimeconfig.json
 
 # Ignore environment files
-.env
-*.env
+environments/environment.development.ts
