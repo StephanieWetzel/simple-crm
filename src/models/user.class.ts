@@ -10,7 +10,7 @@ export class User {
     constructor(obj?: any) {
         this.firstName = obj ? obj.firstName : '';
         this.lastName = obj ? obj.lastName : '';
-        this.email = obj ? obj.lastName : '';
+        this.email = obj ? obj.email : '';
         this.dateOfBirth = obj ? obj.birthDate : '';
         this.address = obj ? obj.address : '';
         this.zipCode = obj ? obj.zipCode : '';
