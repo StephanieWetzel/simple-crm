@@ -1,3 +1,7 @@
+mat-card-title {
+    font-size: 24px;
+}
+
 .user-detail-header {
     min-height: 250px;
     background-color: #ff5b27;
@@ -26,6 +30,8 @@
     }
 }
 
-mat-card-title {
-    font-size: 24px;
+.pin-right-upper-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
