@@ -44,6 +44,7 @@ export class DialogEditUserComponent {
     return onSnapshot(this.getUserDocRef(), (doc) => {
       if (doc) {
         this.user = { ...doc.data(), id: doc.id };
+        console.log(this.user)
       }
     });
   }
