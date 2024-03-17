@@ -18,7 +18,7 @@ import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.co
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-  userId: string | undefined | any;
+  userId: string | any;
   user: User = new User();
   firestore: Firestore = inject(Firestore);
 
@@ -35,6 +35,7 @@ export class UserDetailComponent {
     if (docRef) {
       const user = { ...docRef.data(), id: docRef.id };
       this.user = new User(user);
+      console.log('Retrieved user', this.user);
       return this.user;
     } else {
       alert('User not found!');
@@ -49,13 +50,16 @@ export class UserDetailComponent {
 
 
   editUserDetails() {
-    this.dialog.open(DialogEditUserComponent);
+    const dialog = this.dialog.open(DialogEditUserComponent);
+    dialog.componentInstance.user = new User(this.user.toJSON()); // creates COPY of user, which we can then edit without changing data in the original user
+    dialog.componentInstance.userId = this.userId; // userId from DialogEditAddressComponent receives value from userId in THIS component
   }
 
 
   editAddressDetails() {
-    const addressDialog = this.dialog.open(DialogEditAddressComponent);
-    addressDialog.componentInstance.user = this.user; // transfers data from user-object to addressDialog -> both components now show the same data
+    const dialog = this.dialog.open(DialogEditAddressComponent);
+    dialog.componentInstance.user = new User(this.user.toJSON()); // creates COPY of user, which we can then edit without changing data in the original user
+    dialog.componentInstance.userId = this.userId; // userId from DialogEditAddressComponent receives value from userId in THIS component
   }
 
 }

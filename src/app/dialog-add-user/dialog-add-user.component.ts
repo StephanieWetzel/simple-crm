@@ -33,16 +33,17 @@ export class DialogAddUserComponent {
     console.log('Current user is ', this.user);
     this.loading = true;
 
-    const usersCollectionRef = collection(this.firestore, 'users');
-    await addDoc(usersCollectionRef, this.user.toJSON())
-      .then((result: any) => {
+    await addDoc(this.getUserColRef(), this.user.toJSON())
+      .then(() => {
         this.loading = false;
-        console.log('Adding user finished ', result);
         this.dialogRef.close();
       });
   }
 
 
+  getUserColRef() {
+    return collection(this.firestore, 'users');
+  }
 
 
 }

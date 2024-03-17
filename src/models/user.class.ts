@@ -11,7 +11,7 @@ export class User {
         this.firstName = obj ? obj.firstName : '';
         this.lastName = obj ? obj.lastName : '';
         this.email = obj ? obj.email : '';
-        this.dateOfBirth = obj ? obj.birthDate : '';
+        this.dateOfBirth = obj ? obj.dateOfBirth : '';
         this.address = obj ? obj.address : '';
         this.zipCode = obj ? obj.zipCode : '';
         this.city = obj ? obj.city : '';
