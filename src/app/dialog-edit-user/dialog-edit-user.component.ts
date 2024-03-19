@@ -8,8 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { User } from '../../models/user.class';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Firestore, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
-
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 @Component({
   selector: 'app-dialog-edit-user',
   standalone: true,
@@ -19,19 +18,18 @@ import { Firestore, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 })
 export class DialogEditUserComponent {
   user: User | any;
-  userId: string | any;
+  userId: string | undefined | any;
   dateOfBirth: Date | any;
   loading = false;
-  unsubUpdatedUser;
   firestore: Firestore = inject(Firestore);
 
   constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>) {
-    this.unsubUpdatedUser = this.subUpdatedUser();
   }
 
 
   async updateUser() {
     this.loading = true;
+
     await updateDoc(this.getUserDocRef(), this.user.toJSON())
       .then(() => {
         this.loading = false;
@@ -40,23 +38,8 @@ export class DialogEditUserComponent {
   }
 
 
-  subUpdatedUser() {
-    return onSnapshot(this.getUserDocRef(), (doc) => {
-      if (doc) {
-        this.user = { ...doc.data(), id: doc.id };
-        console.log(this.user)
-      }
-    });
-  }
-
-
   getUserDocRef() {
     return doc(this.firestore, 'users', this.userId);
-  }
-
-
-  ngOnDestroy() {
-    this.unsubUpdatedUser();
   }
 
 }

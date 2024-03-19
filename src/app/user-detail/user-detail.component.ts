@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card'
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,7 +18,7 @@ import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.co
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-  userId: string | any;
+  userId: string | undefined | any;
   user: User = new User();
   firestore: Firestore = inject(Firestore);
 
@@ -29,18 +29,11 @@ export class UserDetailComponent {
   }
 
 
-  async getUser() {
-    const docRef = await getDoc(this.getUserDocRef());
-
-    if (docRef) {
-      const user = { ...docRef.data(), id: docRef.id };
+  getUser() {
+    const docRef = this.getUserDocRef();
+    docData(docRef).subscribe(user => {
       this.user = new User(user);
-      console.log('Retrieved user', this.user);
-      return this.user;
-    } else {
-      alert('User not found!');
-      return null;
-    }
+    });
   }
 
 
@@ -51,7 +44,7 @@ export class UserDetailComponent {
 
   editUserDetails() {
     const dialog = this.dialog.open(DialogEditUserComponent);
-    dialog.componentInstance.user = new User(this.user.toJSON()); // creates COPY of user, which we can then edit without changing data in the original user
+    dialog.componentInstance.user = new User(this.user.toJSON()); // creates COPY of user, which we can then edit without changing data in the original user (when closing it without saving changes)
     dialog.componentInstance.userId = this.userId; // userId from DialogEditAddressComponent receives value from userId in THIS component
   }
 
