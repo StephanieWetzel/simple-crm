@@ -30,10 +30,14 @@ export class UserDetailComponent {
 
 
   getUser() {
-    const docRef = this.getUserDocRef();
-    docData(docRef).subscribe(user => {
-      this.user = new User(user);
-    });
+    if (this.userId) {
+      const docRef = this.getUserDocRef();
+      docData(docRef).subscribe(user => {
+        this.user = new User(user);
+      });
+    } else {
+      alert('User not found! Please try again later.');
+    }
   }
 
 

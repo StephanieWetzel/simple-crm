@@ -17,7 +17,7 @@ import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
   styleUrl: './dialog-edit-user.component.scss'
 })
 export class DialogEditUserComponent {
-  user: User | any;
+  user: User | any = new User();
   userId: string | undefined | any;
   dateOfBirth: Date | any;
   loading = false;
@@ -29,12 +29,15 @@ export class DialogEditUserComponent {
 
   async updateUser() {
     this.loading = true;
-
-    await updateDoc(this.getUserDocRef(), this.user.toJSON())
-      .then(() => {
-        this.loading = false;
-        this.dialogRef.close();
-      });
+    if (this.userId) {
+      await updateDoc(this.getUserDocRef(), this.user.toJSON())
+        .then(() => {
+          this.loading = false;
+          this.dialogRef.close();
+        });
+    } else {
+      alert('Could not save changes! Please try again later.');
+    }
   }
 
 
