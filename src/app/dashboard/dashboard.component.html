@@ -1,7 +1,35 @@
-<div>
-    <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels" [options]="pieChartOptions"
-        [plugins]="pieChartPlugins" [legend]="pieChartLegend">
-    </canvas>
+<div class="main-container">
+    <div class="chart-section">
+        <div class="chart-container pie-chart-container">
+            <div>
+                <h2>Donations this Month: {{ totalDonations.toLocaleString() }}€</h2>
+            </div>
+
+            <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+                [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+            </canvas>
+
+            <div class="labels-container">
+                <div>
+                    <span style="color: #FF6384">Individuals</span>
+                    <span style="color: #36A2EB">Corporations</span>
+                </div>
+                <div>
+                    <span style="color: #FFCE56">Foundations</span>
+                    <span style="color: #4BC0C0">Government Agencies</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="chart-container line-chart-container">
+            <h2>Donations this Year: {{ totalDonationsForLineChart.toLocaleString() }}€</h2>
+            <canvas baseChart [type]="'line'" [datasets]="lineChartDatasets" [labels]="lineChartLabels"
+                [options]="lineChartOptions" [plugins]="lineChartPlugins" [legend]="lineChartLegend">
+            </canvas>
+        </div>
+    </div>
+
 
 
 </div>
